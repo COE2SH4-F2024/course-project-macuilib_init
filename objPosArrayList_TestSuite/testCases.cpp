@@ -160,7 +160,56 @@ void testInsertHead_5Element()
 	// The destructor will be called automatically for stack-allocated objects
 	tearDown(result);
 }
+//Custom Test Case 1
+void testInsertHead_5Element_Custom()
+{
+    printf("\n=== testInsertHead_5Element_Custom() ===\n");
+    bool result = true;
 
+    objPos currentPos;
+    objPos bodyPos(10, 20, 'x');  
+    objPos headPos(30, 40, 'y');  
+
+    // Insert 4 body elements, then 1 unique head element
+    objPosArrayList thisList;
+    thisList.insertHead(bodyPos);
+    thisList.insertHead(bodyPos);
+    thisList.insertHead(bodyPos);
+    thisList.insertHead(bodyPos);
+    thisList.insertHead(headPos);
+
+    int expectedSize = 5;
+    int actualSize = thisList.getSize();
+
+    // Confirm the list size is now 5
+    result &= assert_equal(expectedSize, actualSize);
+
+    bool expectedCheck = true;
+    bool actualCheck;
+
+    // Then, check the head element is the unique element
+    currentPos = thisList.getHeadElement();
+    actualCheck = headPos.isPosEqual(&currentPos);
+
+    result &= assert_equal(expectedCheck, actualCheck);
+
+    // Next, check the body elements at index 1, 2, and 3.
+    for (int i = 1; i < actualSize - 1; i++) {
+        currentPos = thisList.getElement(i);
+        actualCheck = bodyPos.isPosEqual(&currentPos);
+
+        result &= assert_equal(expectedCheck, actualCheck);
+    }
+
+    // Finally, check the tail element is the body element
+    currentPos = thisList.getTailElement();
+    actualCheck = bodyPos.isPosEqual(&currentPos);
+
+    result &= assert_equal(expectedCheck, actualCheck);
+
+    // The destructor will be called automatically for stack-allocated objects
+    tearDown(result);
+}
 
 
 // Test Case 3a - insertTail 1 Element 
@@ -210,6 +259,48 @@ void testInsertTail_1Element()
 
 	tearDown(result);
 }
+
+//Custom Test Case 1
+void testInsertTail_1Element_Custom()
+{
+    printf("\n=== testInsertTail_1Element_Custom() ===\n");
+    bool result = true;
+
+    objPos currentPos;
+    objPos samplePos(10, 15, 'z');  
+
+    // Insert 1 sample element
+    objPosArrayList thisList;
+    thisList.insertTail(samplePos);
+
+    int expectedSize = 1;
+    int actualSize = thisList.getSize();
+
+    // First check the list size is 1
+    result &= assert_equal(expectedSize, actualSize);
+
+    bool expectedCheck = true;
+    bool actualCheck;
+
+    // Then check whether the head element is what we have inserted.
+    currentPos = thisList.getHeadElement();
+    actualCheck = samplePos.isPosEqual(&currentPos);
+    result &= assert_equal(expectedCheck, actualCheck);
+
+    // Next, check whether the tail element is also the head element in a list of 1 element.
+    currentPos = thisList.getTailElement();
+    actualCheck = samplePos.isPosEqual(&currentPos);
+    result &= assert_equal(expectedCheck, actualCheck);
+
+    // Finally, check whether the element at index = 0 is also the head element in a list of 1 element
+    currentPos = thisList.getElement(0);
+    actualCheck = samplePos.isPosEqual(&currentPos);
+    result &= assert_equal(expectedCheck, actualCheck);
+
+    // The destructor will be called automatically for stack-allocated objects
+    tearDown(result);
+}
+
 
 // Test Case 3b - insertTail 5 Element 
 void testInsertTail_5Element()
@@ -338,6 +429,55 @@ void testRemoveHead_5Element()
 	tearDown(result);
 }
 
+//Custom Test Case 3
+void testRemoveHead_5Element_Custom()
+{
+    printf("\n=== testRemoveHead_5Element_Custom() ===\n");
+    bool result = true;
+
+    objPos currentPos;
+    objPos bodyPos(10, 20, 'x');  
+    objPos headPos(30, 40, 'y');  
+
+    // Insert 4 body elements, then 1 unique head element
+    objPosArrayList thisList;
+    thisList.insertHead(bodyPos);
+    thisList.insertHead(bodyPos);
+    thisList.insertHead(bodyPos);
+    thisList.insertHead(bodyPos);
+    thisList.insertHead(headPos);
+
+    // Remove the head element
+    thisList.removeHead();
+
+    int expectedSize = 4;
+    int actualSize = thisList.getSize();
+
+    // Confirm the list size is now 4
+    result &= assert_equal(expectedSize, actualSize);
+
+    bool expectedCheck = true;
+    bool actualCheck;
+
+    // Then, check the unique element has been removed
+    currentPos = thisList.getHeadElement();
+    actualCheck = bodyPos.isPosEqual(&currentPos);
+
+    result &= assert_equal(expectedCheck, actualCheck);
+
+    // Next, the rest of the elements are still common elements
+    for (int i = 1; i < actualSize; i++) {
+        currentPos = thisList.getElement(i);
+        actualCheck = bodyPos.isPosEqual(&currentPos);
+
+        result &= assert_equal(expectedCheck, actualCheck);
+    }
+
+    // The destructor will be called automatically for stack-allocated objects
+    tearDown(result);
+}
+
+
 // Test Case 5a - removeTail 1 Element 
 void testRemoveTail_1Element()
 {
@@ -423,12 +563,15 @@ void testRemoveTail_5Element()
 
 		testInsertHead_1Element();
 		testInsertHead_5Element();
+		testInsertHead_5Element_Custom();
 
 		testInsertTail_1Element();
+		testInsertTail_1Element_Custom();
 		testInsertTail_5Element();
 
 		testRemoveHead_1Element();
 		testRemoveHead_5Element();
+		testRemoveHead_5Element_Custom();
 
 		testRemoveTail_1Element();
 		testRemoveTail_5Element();
