@@ -1,6 +1,8 @@
 #ifndef GAMEMECHS_H
 #define GAMEMECHS_H
 
+#include "Food.h"  // Include the Food class header ******
+
 #include <cstdlib>
 #include <time.h>
 
@@ -20,7 +22,7 @@ class GameMechs
         int boardSizeX;
         int boardSizeY;
 
-        objPos food;
+        Food food;  // Food object to store food information ****
 
     public:
         GameMechs();
@@ -32,7 +34,7 @@ class GameMechs
         bool getLoseFlagStatus() const;
         void setLoseFlag();
 
-        char getInput() const;
+        char getInput();
         void setInput(char this_input);
         void clearInput();
 
@@ -43,6 +45,10 @@ class GameMechs
         void incrementScore();
         
         // More methods should be added here
+        void generateFood(const objPos& blockOff); // generate food avoiding blocks****
+        objPos getFoodPos() const;  // get the position of the food****
+        bool getLoseFlag() const; //new ------
+        bool getExitFlag() const; //new -----
 };
 
 #endif

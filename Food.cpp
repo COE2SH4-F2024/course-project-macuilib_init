@@ -5,9 +5,9 @@
 void Food::generateFood(const objPos& blockOff) {
     int foodX, foodY;
     do {
-        foodX = rand() % 10;  // Random x position within board size
-        foodY = rand() % 10;  // Random y position within board size
-    } while (foodX == blockOff.pos->x && foodY == blockOff.pos->y);  // Ensure food doesn't overlap with block
+        foodX = rand() % 10; 
+        foodY = rand() % 10;  
+    } while (foodX == blockOff.pos->x && foodY == blockOff.pos->y);  // Ensure food 
 
     foodPos.pos->x = foodX;
     foodPos.pos->y = foodY;
